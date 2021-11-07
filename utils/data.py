@@ -52,3 +52,7 @@ def plot_length(path_length_history):
     plt.xlabel('Iteration')
     plt.ylabel('Path length')
     plt.show()
+
+def plot_path(path, vertices):
+    plt.plot(vertices[path, 0], vertices[path, 1], '-o')
+    plt.show()
