@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+
 
 class Data:
     def __init__(self, filename):
@@ -8,8 +11,12 @@ class Data:
         self.vertices = np.empty((0, 2), dtype=np.float64)
         self.edges = None
         self.edge_id = None
+        print('Reading data...')
         self.read_data()
+        print('Data read')
+        print("Building edges...")
         self.build_edges()
+        print('Edges built')
     
     def read_data(self):
         coord_read_started = False
@@ -30,12 +37,18 @@ class Data:
                     else:
                         coords = [float(coord) for coord in line.split()[1:]]
                         self.vertices = np.concatenate([self.vertices, np.array(coords).reshape(1, 2)])
-    
+        
+        self.vertices = np.unique(self.vertices, axis=0)
+        self.n = self.vertices.shape[0]
+
     def build_edges(self):
-        self.edges = np.empty((self.n, self.n), dtype=np.float64)
-        self.edge_id = np.empty((self.n, self.n), dtype=np.int32)
-        for i in range(self.n):
-            for j in range(i + 1, self.n):
-                self.edges[i, j] = np.linalg.norm(self.vertices[i] - self.vertices[j])
-                self.edges[j, i] = self.edges[i, j]
-                self.edge_id[i, j] = self.edge_id[j, i] = i * self.n + j
+        self.edges = np.eye(self.n)
+        vals = np.expand_dims(self.vertices, axis=1) - np.expand_dims(self.vertices, axis=0)
+        self.edges = np.linalg.norm(vals, axis=-1)
+        self.edges += np.eye(self.n)
+
+def plot_length(path_length_history):
+    plt.plot(path_length_history)
+    plt.xlabel('Iteration')
+    plt.ylabel('Path length')
+    plt.show()
