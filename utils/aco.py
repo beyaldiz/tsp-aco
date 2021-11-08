@@ -28,14 +28,17 @@ class Environment(Data):
         self.pheromone *= (1 - self.pheromone_evaporation)
     
     def run(self):
-        for i in tqdm(range(self.num_iters)):
-            for ant in self.ants:
-                ant.cycle()
-            self.evaporate_pheromone()
-            for ant in self.ants:
-                ant.deposit_pheromone()
-                ant.reset()
-            self.best_path_length_history.append(self.best_path_length)
+        with tqdm(total=self.num_iters) as pbar:
+            for i in range(self.num_iters):
+                for ant in self.ants:
+                    ant.cycle()
+                self.evaporate_pheromone()
+                for ant in self.ants:
+                    ant.deposit_pheromone()
+                    ant.reset()
+                self.best_path_length_history.append(self.best_path_length)
+                pbar.update(1)
+                pbar.set_postfix({"Best length": str(self.best_path_length)})
 
 class Ant:
     def __init__(self, environment, initial_pos, alpha, beta):
