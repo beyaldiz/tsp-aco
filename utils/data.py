@@ -38,8 +38,8 @@ class Data:
                         coords = [float(coord) for coord in line.split()[1:]]
                         self.vertices = np.concatenate([self.vertices, np.array(coords).reshape(1, 2)])
         
-        self.vertices = np.unique(self.vertices, axis=0)
-        self.n = self.vertices.shape[0]
+        # self.vertices = np.unique(self.vertices, axis=0)
+        # self.n = self.vertices.shape[0]
 
     def build_edges(self):
         self.edges = np.eye(self.n)
@@ -56,3 +56,8 @@ def plot_length(path_length_history):
 def plot_path(path, vertices):
     plt.plot(vertices[path, 0], vertices[path, 1], '-o')
     plt.show()
+
+def save_path(filename, path):
+    with open('res.txt', 'w+') as f:
+        for city in path:
+            f.write(str(city + 1) + '\n')

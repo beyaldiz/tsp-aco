@@ -1,7 +1,7 @@
 import argparse
 
 from utils.aco import Environment
-from utils.data import plot_length, plot_path
+from utils.data import plot_length, plot_path, save_path
 
 
 def parse_arguments():
@@ -30,9 +30,6 @@ def main():
                         args.evap_rate, args.est_len, args.num_iters)
     env.run()
     print(env.best_path_length)
-    with open('res.txt', 'w+') as f:
-        for city in env.best_path:
-            f.write(str(city) + '\n')
     plot_length(env.best_path_length_history)
     # plot_path(env.best_path, env.vertices)
 

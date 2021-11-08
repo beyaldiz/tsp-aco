@@ -1,7 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 
-from utils.data import Data
+from utils.data import Data, save_path
 
 
 class Environment(Data):
@@ -39,6 +39,7 @@ class Environment(Data):
                 self.best_path_length_history.append(self.best_path_length)
                 pbar.update(1)
                 pbar.set_postfix({"Best length": str(self.best_path_length)})
+                save_path('res.txt', self.best_path)
 
 class Ant:
     def __init__(self, environment, initial_pos, alpha, beta):
@@ -47,7 +48,7 @@ class Ant:
         self.current_pos = initial_pos
         self.alpha = alpha
         self.beta = beta
-        self.path = []
+        self.path = [initial_pos]
         self.path_length = 0
         self.visited = [False for _ in range(self.env.n)]
         self.visited[initial_pos] = True
@@ -84,7 +85,7 @@ class Ant:
 
     def reset(self):
         self.current_pos = self.initial_pos
-        self.path = []
+        self.path = [self.initial_pos]
         self.path_length = 0
         self.visited = [False for _ in range(self.env.n)]
         self.visited[self.initial_pos] = True
