@@ -18,7 +18,7 @@ def parse_arguments():
                          default=0.15, help="Pheromone evaporation rate")
     parser.add_argument('--est-len', type=float,
                          default=1.0, help="Estimated tour length")
-    parser.add_argument('--num-iters', type=float,
+    parser.add_argument('--num-iters', type=int,
                          default=30, help="Number of iterations")
     args = parser.parse_args()
     return args
