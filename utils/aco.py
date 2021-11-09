@@ -22,11 +22,12 @@ class Environment(Data):
         self.ants = []
         for _ in range(num_ants):
             self.ants.append(Ant(self, np.random.choice(self.n),
-                                 self.alpha, self.beta))
+                                 np.random.uniform(self.alpha[0], self.alpha[1]),
+                                 np.random.uniform(self.beta[0], self.beta[1])))
 
     def evaporate_pheromone(self):
         self.pheromone *= (1 - self.pheromone_evaporation)
-    
+
     def run(self):
         with tqdm(total=self.num_iters) as pbar:
             for i in range(self.num_iters):

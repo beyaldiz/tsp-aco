@@ -9,11 +9,11 @@ def parse_arguments():
     parser.add_argument('--input', type=str,
                          default="data/rl11849.tsp", help="Input file")
     parser.add_argument('--num-ants', type=int,
-                         default=10, help="Num of ants of the colony")
-    parser.add_argument('--alpha', type=float,
-                         default=1.0, help="Pheromone power constant")
-    parser.add_argument('--beta', type=float,
-                         default=1.5, help="Visibility power constant")
+                         default=100, help="Num of ants of the colony")
+    parser.add_argument('--alpha', type=float, nargs='+',
+                         default=[1.0, 3.0], help="Pheromone power constant")
+    parser.add_argument('--beta', type=float, nargs='+',
+                         default=[1.5, 30.0], help="Visibility power constant")
     parser.add_argument('--evap-rate', type=float,
                          default=0.15, help="Pheromone evaporation rate")
     parser.add_argument('--est-len', type=float,
