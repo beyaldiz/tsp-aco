@@ -7,13 +7,13 @@ from utils.data import plot_length, plot_path, save_path
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', type=str,
-                         default="data/rl11849.tsp", help="Input file")
+                         default="data/a280.tsp", help="Input file")
     parser.add_argument('--num-ants', type=int,
-                         default=100, help="Num of ants of the colony")
+                         default=50, help="Num of ants of the colony")
     parser.add_argument('--alpha', type=float, nargs='+',
-                         default=[1.0, 3.0], help="Pheromone power constant")
+                         default=[1.6, 1.6], help="Pheromone power constant")
     parser.add_argument('--beta', type=float, nargs='+',
-                         default=[1.5, 30.0], help="Visibility power constant")
+                         default=[1, 1], help="Visibility power constant")
     parser.add_argument('--evap-rate', type=float,
                          default=0.15, help="Pheromone evaporation rate")
     parser.add_argument('--est-len', type=float,
@@ -30,7 +30,7 @@ def main():
                         args.evap_rate, args.est_len, args.num_iters)
     env.run()
     print(env.best_path_length)
-    plot_length(env.best_path_length_history)
+    # plot_length(env.best_path_length_history)
     # plot_path(env.best_path, env.vertices)
 
 
